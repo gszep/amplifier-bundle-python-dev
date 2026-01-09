@@ -38,10 +38,11 @@ hooks:
       report_level: warning
       # Inject issues into agent context for awareness
       auto_inject: true
-      # Which checks to run (subset for speed on every edit)
+      # Which checks to run on every edit
       checks:
         - lint
         - types
+        - format
 
 # Agents provided by this behavior
 agents:
