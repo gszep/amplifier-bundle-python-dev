@@ -6,6 +6,7 @@ check Python code for formatting, linting, type errors, and stubs.
 
 from typing import Any
 
+from amplifier_core import ToolResult
 from amplifier_bundle_python_dev import CheckConfig, check_content, check_files
 
 
@@ -68,14 +69,14 @@ Returns:
             },
         }
 
-    async def execute(self, input_data: dict[str, Any]) -> dict[str, Any]:
+    async def execute(self, input_data: dict[str, Any]) -> ToolResult:
         """Execute the Python check tool.
 
         Args:
             input_data: Tool input with paths, content, fix, and/or checks
 
         Returns:
-            Tool result dictionary
+            ToolResult with check output
         """
         paths = input_data.get("paths")
         content = input_data.get("content")
@@ -101,7 +102,7 @@ Returns:
             # Default to current directory
             result = check_files(["."], config=config, fix=fix)
 
-        return result.to_tool_output()
+        return ToolResult(success=result.success, output=result.to_tool_output())
 
 
 async def mount(coordinator: Any, config: dict[str, Any] | None = None) -> dict[str, Any]:
