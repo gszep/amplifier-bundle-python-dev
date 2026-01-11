@@ -369,9 +369,9 @@ class PythonCheckHooks:
             return HookResult(
                 action="inject_context",
                 context_injection=context_text,
-                context_injection_role="user",  # "user" role so it appears in conversation flow, not at start
-                # ephemeral=False (default) - coordinator adds to context manager
-                # for inclusion in next LLM request
+                context_injection_role="user",
+                ephemeral=True,  # Ephemeral so it's applied on next iteration (after tool result)
+                append_to_last_tool_result=True,  # Append to the tool result message
                 user_message=user_message,
                 user_message_level=user_level,
                 user_message_source="python-check",  # Display name for the message
