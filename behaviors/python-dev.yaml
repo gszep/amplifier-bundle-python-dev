@@ -47,7 +47,7 @@ hooks:
 # Agents provided by this behavior
 agents:
   include:
-    - python-dev:agents/python-dev
+    - python-dev:python-dev
 
 # Context files loaded with this behavior
 context:
