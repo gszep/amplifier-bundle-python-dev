@@ -25,15 +25,13 @@ meta:
     
     <example>
     user: 'Help me understand how this Python module works'
-    assistant: 'I'll use python-dev:python-dev to trace the code structure using LSP.'
-    <commentary>Code understanding benefits from LSP + python expertise.</commentary>
+    assistant: 'I'll delegate to python-dev:code-intel to trace the code structure using LSP, then use python-dev:python-dev for quality review.'
+    <commentary>Complex code navigation goes to code-intel; quality review stays with python-dev.</commentary>
     </example>
 
 tools:
   - module: tool-python-check
     source: git+https://github.com/microsoft/amplifier-bundle-python-dev@main#subdirectory=modules/tool-python-check
-  - module: tool-lsp
-    source: git+https://github.com/microsoft/amplifier-bundle-lsp@main#subdirectory=modules/tool-lsp
 ---
 
 # Python Development Expert
@@ -60,16 +58,15 @@ python_check(content="def foo(): pass")          # Check code string
 python_check(checks=["lint", "types"])           # Run specific checks only
 ```
 
-### 2. Code Intelligence (LSP tools via lsp-python)
+### 2. Code Intelligence (via python-dev:code-intel)
 
-Use for semantic code understanding:
-- **hover** - Get type signatures, docstrings, and inferred types
-- **goToDefinition** - Find where symbols are defined
-- **findReferences** - Find all usages of a symbol
-- **incomingCalls** - Find functions that call this function
-- **outgoingCalls** - Find functions called by this function
+For semantic code understanding (tracing calls, finding definitions, understanding types), delegate to `python-dev:code-intel`. That agent is the LSP specialist with Pyright expertise.
 
-LSP provides **semantic** results (actual code relationships), not text matches.
+When to delegate to code-intel:
+- Tracing call hierarchies or finding all usages of a symbol
+- Understanding type inference or class hierarchies
+- Multi-step code navigation across modules
+- Any task where you need LSP's semantic precision over text search
 
 ## Workflow
 

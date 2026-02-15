@@ -5,26 +5,27 @@
 # Provides:
 # - Tool module: python_check() for agents
 # - Hook module: Automatic checking on file write/edit
-# - Agent: python-dev expert
+# - Agents: python-dev expert + code-intel LSP specialist
 # - Shared library: Core checking logic (ruff + pyright)
-# - Composition: Includes lsp-python for code intelligence
+# - LSP: Pyright integration for code intelligence
 #
 # Usage:
 #   includes:
 #     - bundle: git+https://github.com/microsoft/amplifier-bundle-python-dev@main
+#
+# Individual behaviors (for selective inclusion):
+#   - bundle: python-dev:behaviors/python-lsp      # LSP only
+#   - bundle: python-dev:behaviors/python-quality   # Quality tools only
 
 bundle:
   name: python-dev
-  version: 0.1.0
-  description: Comprehensive Python development tools with code quality, LSP, and expert agent
+  version: 0.2.0
+  description: Comprehensive Python development tools with code quality, LSP, and expert agents
 
 # Behavior bundle pattern - provides capabilities to be composed into other bundles
 # NOTE: This bundle is included BY foundation, so it must NOT include foundation (circular dep)
 includes:
-  # LSP-Python provides Python-specific code intelligence
-  - bundle: git+https://github.com/microsoft/amplifier-bundle-lsp-python@main
-
-  # Our Python development behavior (tool + hook + agent)
+  # Composite behavior: LSP intelligence + quality tools
   - bundle: python-dev:behaviors/python-dev
 
 # Default behavior when using this bundle

@@ -21,17 +21,17 @@ python_check(paths=["src/"], fix=True)  # Auto-fix issues
 - **pyright**: Static type checking
 - **stub detection**: TODOs, placeholders, incomplete code
 
-### LSP Tools (via lsp-python)
+### Code Intelligence (via python-dev:code-intel)
 
-Semantic code intelligence for Python:
+For semantic code understanding (tracing calls, finding definitions, understanding types), delegate to `python-dev:code-intel`. That agent is the LSP specialist with Pyright expertise.
 
-| Tool | Use For |
-|------|---------|
-| `hover` | Get type info and docstrings |
-| `goToDefinition` | Find where a symbol is defined |
-| `findReferences` | Find all usages of a symbol |
-| `incomingCalls` | What calls this function? |
-| `outgoingCalls` | What does this function call? |
+| Capability | When to delegate |
+|------------|-----------------|
+| Type info and docstrings | Understanding signatures and inferred types |
+| Go to definition | Finding where a symbol is defined |
+| Find references | Finding all usages of a symbol |
+| Incoming/outgoing calls | Tracing call hierarchies |
+| Multi-step navigation | Complex cross-module code exploration |
 
 ## Automatic Checking Hook
 
@@ -103,6 +103,6 @@ See @python-dev:context/PYTHON_BEST_PRACTICES.md for the full development philos
 **Key points:**
 1. Run `python_check` after writing Python code
 2. Fix issues immediately - don't accumulate debt
-3. Use LSP tools to understand code before modifying
+3. Delegate to `python-dev:code-intel` to understand code before modifying
 4. Type hints at boundaries, not everywhere
 5. Readability over cleverness

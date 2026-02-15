@@ -1,55 +1,20 @@
-# Python Development Behavior
+# Python Development Behavior (Composite)
 #
-# Provides comprehensive Python development capabilities:
-# - Code quality checking (ruff, pyright, stub detection)
-# - Automatic checking on file edits (hook)
-# - Expert Python agent
+# Full Python development experience: LSP code intelligence + quality tools.
+# Includes both sub-behaviors:
+#   - python-lsp: Pyright LSP + code-intel agent
+#   - python-quality: ruff/pyright quality checks + python-dev agent
 #
-# Include this behavior to add Python development tools to any bundle.
+# This is the default behavior when using the python-dev bundle.
+# For individual behaviors, include them directly:
+#   - python-dev:behaviors/python-lsp    (LSP only)
+#   - python-dev:behaviors/python-quality (quality tools only)
 
 bundle:
   name: python-dev-behavior
   version: 0.1.0
-  description: Python development tools - quality checks, auto-checking hook, and expert agent
+  description: Comprehensive Python development - LSP intelligence + quality tools
 
-# Tools provided by this behavior
-tools:
-  - module: tool-python-check
-    source: git+https://github.com/microsoft/amplifier-bundle-python-dev@main#subdirectory=modules/tool-python-check
-    config:
-      # Default configuration - can be overridden in pyproject.toml
-      default_checks:
-        - format
-        - lint
-        - types
-        - stubs
-
-# Hooks provided by this behavior
-hooks:
-  - module: hooks-python-check
-    source: git+https://github.com/microsoft/amplifier-bundle-python-dev@main#subdirectory=modules/hooks-python-check
-    config:
-      # Enable automatic checking on Python file edits
-      enabled: true
-      # File patterns to check
-      file_patterns:
-        - "*.py"
-      # Minimum severity to report: error | warning | info
-      report_level: warning
-      # Inject issues into agent context for awareness
-      auto_inject: true
-      # Which checks to run on every edit
-      checks:
-        - lint
-        - types
-        - format
-
-# Agents provided by this behavior
-agents:
-  include:
-    - python-dev:python-dev
-
-# Context files loaded with this behavior
-context:
-  include:
-    - python-dev:context/python-dev-instructions.md
+includes:
+  - bundle: python-dev:behaviors/python-lsp
+  - bundle: python-dev:behaviors/python-quality
